@@ -6,6 +6,8 @@ import com.example.demo.dto.task.TasksDTO;
 import com.example.demo.dto.task.UpdateTaskDTO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 public class TaskTestClient extends TestClient {
 
@@ -30,6 +32,10 @@ public class TaskTestClient extends TestClient {
     }
 
     public TasksDTO getTask(Pageable pageable) {
-        return get(TasksDTO.class, "http://loclhost:8080/task");
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("page", String.valueOf(pageable.getPageNumber()));
+        params.add("size", String.valueOf(pageable.getPageSize()));
+
+        return getWithParam(TasksDTO.class, params, "http://loclhost:8080/task");
     }
 }

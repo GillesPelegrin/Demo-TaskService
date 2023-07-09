@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.util.MultiValueMap;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -22,6 +23,21 @@ public abstract class TestClient {
     public <T> T get(Class<T> responseBody, String urlTemplate, Object... uriVariables) {
         try {
             MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(urlTemplate, uriVariables)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .accept(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
+                    .andReturn();
+
+            return toObject(mvcResult.getResponse().getContentAsString(), responseBody);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public <T> T getWithParam(Class<T> responseBody, MultiValueMap<String, String> params, String urlTemplate, Object... uriVariables) {
+        try {
+            MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(urlTemplate, uriVariables)
+                            .queryParams(params)
                             .contentType(MediaType.APPLICATION_JSON)
                             .accept(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk())

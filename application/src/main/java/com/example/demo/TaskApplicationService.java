@@ -6,6 +6,7 @@ import com.example.demo.dto.task.TasksDTO;
 import com.example.demo.dto.task.UpdateTaskDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,8 +35,8 @@ public class TaskApplicationService {
         return taskMapper.map(taskRepository.getReferenceById(taskId));
     }
 
-    public TasksDTO getTasks() {
-        Page<Task> tasks = taskRepository.getTasks(Pageable.ofSize(5));
+    public TasksDTO getTasks(int page, int size) {
+        Page<Task> tasks = taskRepository.getTasks(PageRequest.of(page, size));
 
         return TasksDTO.builder()
                 .pageNumber((long) tasks.getNumber())

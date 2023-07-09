@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -43,8 +44,8 @@ public class TaskController {
     }
 
     @GetMapping("/task")
-    public TasksDTO getTasks() {
-        return taskApplicationService.getTasks();
+    public TasksDTO getTasks(@RequestParam int page, @RequestParam int size) {
+        return taskApplicationService.getTasks(page, size);
     }
 
 }
