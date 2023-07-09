@@ -22,7 +22,7 @@ public class TaskAcceptanceTest extends AbstractAcceptanceTest {
     }
 
     @Test
-    void createUpdateAndDeleteTask() throws Exception {
+    void createUpdateAndDeleteTask() {
 
         taskTestClient.createTask(getCreateTaskDTO());
 
