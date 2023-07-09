@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.example.demo.dto.task.CreateTaskDTO;
 import com.example.demo.dto.task.TaskDTO;
+import com.example.demo.dto.task.TasksDTO;
 import com.example.demo.dto.task.UpdateTaskDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -33,10 +34,13 @@ public class TaskApplicationService {
         return taskMapper.map(taskRepository.getReferenceById(taskId));
     }
 
-    public void getTasks() {
+    public TasksDTO getTasks() {
         Page<Task> tasks = taskRepository.getTasks(Pageable.ofSize(5));
 
-        tasks.
+        return TasksDTO.builder()
+                .pageNumber((long) tasks.getNumber())
+                .items(tasks.getContent().stream().map(taskMapper::map).toList())
+                .totalAmount(tasks.getTotalElements())
+                .build();
     }
-
 }

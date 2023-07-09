@@ -1,6 +1,7 @@
 package com.example.demo;
 
 //import org.junit.jupiter.api.BeforeAll;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +34,7 @@ class TaskMapperTest {
         TaskMapper taskMapper = new TaskMapper();
         assertThat(taskMapper.map(getUpdateTaskDTO())).usingRecursiveComparison()
                 .ignoringFields("creationDate", "updateDate")
-                .isEqualTo(getTask());
+                .isEqualTo(getTaskBuilder().message("updatedMessage").build());
     }
 
     @Test

@@ -33,21 +33,27 @@ public class TaskTestConstant {
                 .build();
     }
 
-    public static UpdateTaskDTO getUpdateTaskDTO() {
+    public static UpdateTaskDTO.UpdateTaskDTOBuilder getUpdateTaskDTOBuilder() {
         return UpdateTaskDTO.builder()
                 .id(TASK_ID)
                 .title("title")
-                .message("message")
-                .build();
+                .message("updatedMessage");
+    }
+
+    public static UpdateTaskDTO getUpdateTaskDTO() {
+        return getUpdateTaskDTOBuilder().build();
     }
 
     public static TaskDTO getTaskDTO() {
+        return getTaskDTOBuilder().build();
+    }
+
+    public static TaskDTO.TaskDTOBuilder getTaskDTOBuilder() {
         return TaskDTO.builder()
                 .id(TASK_ID)
                 .title("title")
                 .message("message")
                 .creationDate(currentDateTime())
-                .updateDate(currentDateTime())
-                .build();
+                .updateDate(currentDateTime());
     }
 }

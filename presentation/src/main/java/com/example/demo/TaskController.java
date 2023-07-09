@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.example.demo.dto.task.CreateTaskDTO;
 import com.example.demo.dto.task.TaskDTO;
+import com.example.demo.dto.task.TasksDTO;
 import com.example.demo.dto.task.UpdateTaskDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -42,8 +43,8 @@ public class TaskController {
     }
 
     @GetMapping("/task")
-    public TaskDTO getTasks(@PathVariable String taskId) {
-        return taskApplicationService.getTaskById(taskId);
+    public TasksDTO getTasks() {
+        return taskApplicationService.getTasks();
     }
 
 }
