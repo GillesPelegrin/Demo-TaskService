@@ -3,27 +3,49 @@ package com.example.demo.acceptancetest;
 import com.example.demo.TaskRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
+
+import java.time.Duration;
+
+import static java.time.temporal.ChronoUnit.SECONDS;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class AbstractAcceptanceTest {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
 
-    protected MockMvc mockMvc;
+    private MockMvc mockMvc;
+
+    public static PostgreSQLContainer postgresqlContainer = new PostgreSQLContainer()
+            .withDatabaseName("db")
+            .withUsername("test_user")
+            .withPassword("test_password");
 
     @BeforeAll
-    void setUp() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-        init();
+    static void setUp() {
+        postgresqlContainer.setWaitStrategy(
+                Wait.defaultWaitStrategy()
+                        .withStartupTimeout(Duration.of(60, SECONDS)));
+        postgresqlContainer.start();
     }
+
+    @DynamicPropertySource
+    public static void overrideProperties(DynamicPropertyRegistry dynamicPropertyRegistry) {
+        dynamicPropertyRegistry.add("spring.datasource.url", postgresqlContainer::getJdbcUrl);
+        dynamicPropertyRegistry.add("spring.datasource.username", postgresqlContainer::getUsername);
+        dynamicPropertyRegistry.add("spring.datasource.password", postgresqlContainer::getPassword);
+        dynamicPropertyRegistry.add("spring.datasource.driver-class-name", postgresqlContainer::getDriverClassName);
+    }
+
 
     // todo make a universal solution
     @BeforeEach
@@ -31,5 +53,10 @@ public abstract class AbstractAcceptanceTest {
         taskRepository.deleteAll();
     }
 
-    protected abstract void init();
+    protected MockMvc getMockMvc() {
+        if (this.mockMvc == null) {
+            this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+        }
+        return mockMvc;
+    }
 }
