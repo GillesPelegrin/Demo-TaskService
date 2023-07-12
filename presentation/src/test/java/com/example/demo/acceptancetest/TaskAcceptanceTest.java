@@ -14,15 +14,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TaskAcceptanceTest extends AbstractAcceptanceTest {
 
-    private TaskTestClient taskTestClient;
-
-    @Override
-    protected void init() {
-        taskTestClient = new TaskTestClient(mockMvc);
-    }
 
     @Test
     void createUpdateAndDeleteTask() {
+        TaskTestClient taskTestClient = new TaskTestClient(getMockMvc());
 
         taskTestClient.createTask(getCreateTaskDTO());
 
