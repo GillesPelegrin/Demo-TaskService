@@ -16,4 +16,5 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
       - name: Docker build
+        working-directory: .github/workflows/
         run: docker build .
