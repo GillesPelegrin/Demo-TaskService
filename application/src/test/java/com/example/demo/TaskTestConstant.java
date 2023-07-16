@@ -6,7 +6,7 @@ import com.example.demo.dto.task.UpdateTaskDTO;
 
 import java.time.LocalDateTime;
 
-import static com.example.demo.DateTimeWrapper.currentDateTime;
+import static com.example.demo.util.DateTimeWrapper.currentDateTime;
 
 
 public class TaskTestConstant {
