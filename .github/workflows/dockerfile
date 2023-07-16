@@ -1,0 +1,7 @@
+FROM openjdk:17-jdk-slim-buster
+WORKDIR /app
+
+COPY taskService.jar build/
+
+WORKDIR /app/build
+ENTRYPOINT java -jar taskService.jar

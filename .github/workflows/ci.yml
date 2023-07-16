@@ -1,6 +1,6 @@
 name: Build
 
-on: [push]
+on: [ push ]
 
 jobs:
   build:
@@ -14,4 +14,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Build with Maven
-        run: mvn --batch-mode --update-snapshots clean install -Pci
+        run: mvn clean install
+      - name: Docker build
+        working-directory: .github/workflows/
+        run: docker build .

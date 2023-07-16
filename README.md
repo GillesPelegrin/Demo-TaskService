@@ -30,21 +30,23 @@ purpose is to not redefine common classes in each module and have a place where 
 ### Testing
 
 ###### Architectural Testing
+- [ ] Create a test that check that only the DateTimeWrapper is been used
+
 ###### Acceptance Testing
-- Implemented without testcontainer
+- [x] Create an acceptance test with testcontainers
+- [ ] Create an acceptance test which test the NotFoundException
 ###### Integration Testing
+- [ ] Create an integration test for testing the pagination querry
 ###### Unit Testing
 - Implemented
 
 
 ### Devops
+- [x] Create a pipeline which runs all tests
+- [x] which should build a docker image
+- [ ] publish it to a repository
 
 
-- [x] Create a CRUD task service with postgresQL
-- [x] Devide this into a 3 layerd architecture with multiple modules
-- [ ] Create unit, Integration and Acceptance test (with testcontainer)
-- [x] Seperate Test dependencies and prod dependencies
-- [ ] General error catcher @ExceptionHandler
+### Infrastructure
+- [ ] Create a Terraform config for setting up a kubernetes cluster
 
-- [ ] Introduce security (work with an idp / oauth)
-- [ ] Create a basic github pipeline which create a container and upload it to docker
