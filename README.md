@@ -50,3 +50,5 @@ purpose is to not redefine common classes in each module and have a place where 
 ### Infrastructure
 - [ ] Create a Terraform config for setting up a kubernetes cluster
 
+### Documentation
+- [ ] should create openApi yaml file witch will generate controller 
