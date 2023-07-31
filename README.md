@@ -41,14 +41,21 @@ purpose is to not redefine common classes in each module and have a place where 
 - Implemented
 
 
+### Security
+- [ ] all Task endpoint should be secured by a jwt token
+
 ### Devops
 - [x] Create a pipeline which runs all tests
 - [x] which should build a docker image
-- [ ] publish it to a repository
+- [x] publish it to a repository
 
+### Logging
+- [ ] introduce ELK stack
+- [ ] add Application performance monitoring
 
 ### Infrastructure
 - [ ] Create a Terraform config for setting up a kubernetes cluster
 
 ### Documentation
 - [ ] should create openApi yaml file witch will generate controller 
+- [ ] should create an endpoint to visualize the documentation

@@ -1,13 +1,12 @@
 package com.example.demo;
 
-import com.example.demo.dto.task.CreateTaskDTO;
-import com.example.demo.dto.task.TaskDTO;
-import com.example.demo.dto.task.TasksDTO;
-import com.example.demo.dto.task.UpdateTaskDTO;
+import com.example.demo.gen.springbootserver.model.CreateTaskDto;
+import com.example.demo.gen.springbootserver.model.GetTasks200ResponseDto;
+import com.example.demo.gen.springbootserver.model.TaskDto;
+import com.example.demo.gen.springbootserver.model.UpdateTaskDto;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,11 +18,11 @@ public class TaskApplicationService {
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
 
-    public void createTask(CreateTaskDTO taskDTO) {
+    public void createTask(CreateTaskDto taskDTO) {
         taskRepository.save(taskMapper.map(taskDTO));
     }
 
-    public void updateTask(UpdateTaskDTO taskDTO) {
+    public void updateTask(UpdateTaskDto taskDTO) {
         taskRepository.save(taskMapper.map(taskDTO));
     }
 
@@ -31,17 +30,17 @@ public class TaskApplicationService {
         taskRepository.deleteById(taskId);
     }
 
-    public TaskDTO getTaskById(String taskId) {
+    public TaskDto getTaskById(String taskId) {
         return taskMapper.map(taskRepository.getReferenceById(taskId));
     }
 
-    public TasksDTO getTasks(int page, int size) {
+    public GetTasks200ResponseDto getTasks(int page, int size) {
         Page<Task> tasks = taskRepository.getTasks(PageRequest.of(page, size));
 
-        return TasksDTO.builder()
-                .pageNumber((long) tasks.getNumber())
-                .items(tasks.getContent().stream().map(taskMapper::map).toList())
-                .totalAmount(tasks.getTotalElements())
-                .build();
+        GetTasks200ResponseDto tasksDTO = new GetTasks200ResponseDto();
+        tasksDTO.setItems(tasks.getContent().stream().map(taskMapper::map).toList());
+        tasksDTO.setPageNumber(tasks.getNumber());
+        tasksDTO.setTotalAmount((int) tasks.getTotalElements());
+        return tasksDTO;
     }
 }

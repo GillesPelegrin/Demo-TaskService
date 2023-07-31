@@ -1,0 +1,136 @@
+---
+openapi: 3.0.0
+info:
+  title: 'Task API'
+  description: 'This is the secure api for getting or adapting the task resource'
+  version: 0.0.1
+servers:
+  - url: localhost:8080
+tags:
+  - name: Task
+paths:
+  /v1/task:
+    get:
+      operationId: getTasks
+      tags:
+        - Task
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/pagination'
+                  - type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/task'
+    put:
+      operationId: updateTask
+      tags:
+        - Task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateTask'
+      responses:
+        "200":
+          description: OK
+    post:
+      operationId: createTask
+      tags:
+        - Task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createTask'
+      responses:
+        "200":
+          description: OK
+  /v1/task/{taskId}:
+    parameters:
+      - name: taskId
+        in: path
+        description: The task id
+        required: true
+        schema:
+          $ref: '#/components/schemas/uuid'
+    get:
+      operationId: getTaskById
+      tags:
+        - Task
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/task'
+    delete:
+      operationId: deleteById
+      tags:
+        - Task
+      responses:
+        "200":
+          description: OK
+components:
+  schemas:
+
+    # Generic Component
+    uuid:
+      example: '22da7490-90e7-4df7-88f9-49344644ab09'
+      maxLength: 36
+      minLength: 36
+      type: string
+      description: 'Universally Unique IDentifier'
+    dateTime:
+      type: string
+      format: datetime
+      example: 2017-07-21T17:32:28Z
+    pagination:
+      type: object
+      properties:
+        totalAmount:
+          type: integer
+        pageNumber:
+          type: integer
+
+    # Task Specific Component
+    task:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/uuid'
+        title:
+          type: string
+        message:
+          type: string
+        creationDate:
+          $ref: '#/components/schemas/dateTime'
+        updateDate:
+          $ref: '#/components/schemas/dateTime'
+
+    updateTask:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/uuid'
+        title:
+          type: string
+        message:
+          type: string
+
+    createTask:
+      type: object
+      properties:
+        title:
+          type: string
+        message:
+          type: string
