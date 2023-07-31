@@ -1,15 +1,15 @@
 package com.example.demo.acceptancetest;
 
 import com.example.demo.acceptancetest.client.TaskTestClient;
-import com.example.demo.dto.task.TaskDTO;
-import com.example.demo.dto.task.TasksDTO;
+import com.example.demo.gen.springbootserver.model.GetTasks200ResponseDto;
+import com.example.demo.gen.springbootserver.model.TaskDto;
+import com.example.demo.gen.springbootserver.model.UpdateTaskDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Pageable;
 
 import static com.example.demo.TaskTestConstant.getCreateTaskDTO;
 import static com.example.demo.TaskTestConstant.getTaskDTO;
-import static com.example.demo.TaskTestConstant.getTaskDTOBuilder;
-import static com.example.demo.TaskTestConstant.getUpdateTaskDTOBuilder;
+import static com.example.demo.TaskTestConstant.getUpdateTaskDTO;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TaskAcceptanceTest extends AbstractAcceptanceTest {
@@ -21,7 +21,8 @@ public class TaskAcceptanceTest extends AbstractAcceptanceTest {
 
         taskTestClient.createTask(getCreateTaskDTO());
 
-        TasksDTO tasks = taskTestClient.getTask(Pageable.ofSize(5));
+        var tasks = taskTestClient.getTasks(Pageable.ofSize(5));
+        String taskId = tasks.getItems().get(0).getId();
 
         assertThat(tasks.getPageNumber()).isEqualTo(0);
         assertThat(tasks.getTotalAmount()).isEqualTo(1);
@@ -31,20 +32,21 @@ public class TaskAcceptanceTest extends AbstractAcceptanceTest {
                 .ignoringFields("id", "creationDate", "updateDate")
                 .isEqualTo(getTaskDTO());
 
-        String taskId = tasks.getItems().get(0).id();
 
-        taskTestClient.updateTask(getUpdateTaskDTOBuilder().id(taskId).build());
+        UpdateTaskDto updateTaskDTO = getUpdateTaskDTO();
+        updateTaskDTO.setId(taskId);
 
-        TaskDTO updatedTask = taskTestClient.getTaskById(taskId);
+        taskTestClient.updateTask(updateTaskDTO);
+        TaskDto updatedTask = taskTestClient.getTaskById(taskId);
 
         assertThat(updatedTask)
                 .usingRecursiveComparison()
                 .ignoringFields("creationDate", "updateDate")
-                .isEqualTo(getTaskDTOBuilder().id(taskId).message("updatedMessage").build());
+                .isEqualTo(updateTaskDTO);
 
         taskTestClient.deleteTask(taskId);
 
-        TasksDTO deletedTasks = taskTestClient.getTask(Pageable.ofSize(5));
+        var deletedTasks = taskTestClient.getTasks(Pageable.ofSize(5));
 
         assertThat(deletedTasks.getPageNumber()).isEqualTo(0);
         assertThat(deletedTasks.getTotalAmount()).isEqualTo(0);

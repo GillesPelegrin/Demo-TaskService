@@ -1,9 +1,9 @@
 package com.example.demo.acceptancetest.client;
 
-import com.example.demo.dto.task.CreateTaskDTO;
-import com.example.demo.dto.task.TaskDTO;
-import com.example.demo.dto.task.TasksDTO;
-import com.example.demo.dto.task.UpdateTaskDTO;
+import com.example.demo.gen.springbootserver.model.CreateTaskDto;
+import com.example.demo.gen.springbootserver.model.GetTasks200ResponseDto;
+import com.example.demo.gen.springbootserver.model.TaskDto;
+import com.example.demo.gen.springbootserver.model.UpdateTaskDto;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
@@ -15,27 +15,27 @@ public class TaskTestClient extends TestClient {
         super(mockMvc);
     }
 
-    public void createTask(CreateTaskDTO taskDTO) {
-        post(taskDTO, "http://loclhost:8080/task");
+    public void createTask(CreateTaskDto taskDTO) {
+        post(taskDTO, "http://loclhost:8080/v1/task");
     }
 
-    public void updateTask(UpdateTaskDTO taskDTO) {
-        put(taskDTO, "http://loclhost:8080/task");
+    public void updateTask(UpdateTaskDto taskDTO) {
+        put(taskDTO, "http://loclhost:8080/v1/task");
     }
 
     public void deleteTask(String taskId) {
-        delete("http://loclhost:8080/task/{taskId}", taskId);
+        delete("http://loclhost:8080/v1/task/{taskId}", taskId);
     }
 
-    public TaskDTO getTaskById(String taskId) {
-        return get(TaskDTO.class, "http://loclhost:8080/task/{taskId}", taskId);
+    public TaskDto getTaskById(String taskId) {
+        return get(TaskDto.class, "http://loclhost:8080/v1/task/{taskId}", taskId);
     }
 
-    public TasksDTO getTask(Pageable pageable) {
+    public GetTasks200ResponseDto getTasks(Pageable pageable) {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("page", String.valueOf(pageable.getPageNumber()));
         params.add("size", String.valueOf(pageable.getPageSize()));
 
-        return getWithParam(TasksDTO.class, params, "http://loclhost:8080/task");
+        return getWithParam(GetTasks200ResponseDto.class, params, "http://loclhost:8080/v1/task");
     }
 }

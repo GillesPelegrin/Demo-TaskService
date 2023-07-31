@@ -1,35 +1,35 @@
 package com.example.demo;
 
-import com.example.demo.dto.task.CreateTaskDTO;
-import com.example.demo.dto.task.TaskDTO;
-import com.example.demo.dto.task.UpdateTaskDTO;
+import com.example.demo.gen.springbootserver.model.CreateTaskDto;
+import com.example.demo.gen.springbootserver.model.TaskDto;
+import com.example.demo.gen.springbootserver.model.UpdateTaskDto;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TaskMapper {
 
-    public Task map(CreateTaskDTO taskDTO) {
+    public Task map(CreateTaskDto taskDTO) {
         return Task.builder()
-                .message(taskDTO.message())
-                .title(taskDTO.title())
+                .message(taskDTO.getMessage())
+                .title(taskDTO.getTitle())
                 .build();
     }
 
-    public Task map(UpdateTaskDTO taskDTO) {
+    public Task map(UpdateTaskDto taskDTO) {
         return Task.builder()
-                .id(taskDTO.id())
-                .message(taskDTO.message())
-                .title(taskDTO.title())
+                .id(taskDTO.getId())
+                .message(taskDTO.getMessage())
+                .title(taskDTO.getTitle())
                 .build();
     }
 
-    public TaskDTO map(Task task) {
-        return TaskDTO.builder()
-                .id(task.getId())
-                .message(task.getMessage())
-                .title(task.getTitle())
-                .creationDate(task.getCreationDate())
-                .updateDate(task.getUpdateDate())
-                .build();
+    public TaskDto map(Task task) {
+        TaskDto taskDto = new TaskDto();
+        taskDto.setId(task.getId());
+        taskDto.setMessage(task.getMessage());
+        taskDto.setTitle(task.getTitle());
+        taskDto.setCreationDate(task.getCreationDate().toString());
+        taskDto.setUpdateDate(task.getUpdateDate().toString());
+        return taskDto;
     }
 }

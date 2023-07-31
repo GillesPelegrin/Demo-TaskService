@@ -1,51 +1,48 @@
 package com.example.demo;
 
-import com.example.demo.dto.task.CreateTaskDTO;
-import com.example.demo.dto.task.TaskDTO;
-import com.example.demo.dto.task.TasksDTO;
-import com.example.demo.dto.task.UpdateTaskDTO;
+import com.example.demo.gen.springbootserver.api.V1Api;
+import com.example.demo.gen.springbootserver.model.CreateTaskDto;
+import com.example.demo.gen.springbootserver.model.GetTasks200ResponseDto;
+import com.example.demo.gen.springbootserver.model.PaginationDto;
+import com.example.demo.gen.springbootserver.model.TaskDto;
+import com.example.demo.gen.springbootserver.model.UpdateTaskDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-public class TaskController {
+public class TaskController implements V1Api {
 
     private final TaskApplicationService taskApplicationService;
 
-    @PostMapping("/task")
-    public ResponseEntity createTask(@RequestBody CreateTaskDTO taskDTO) {
-        taskApplicationService.createTask(taskDTO);
+    @Override
+    public ResponseEntity<Void> createTask(CreateTaskDto createTaskDto) {
+        taskApplicationService.createTask(createTaskDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/task")
-    public void updateTask(@RequestBody UpdateTaskDTO taskDTO) {
-        taskApplicationService.updateTask(taskDTO);
-    }
-
-    @DeleteMapping("/task/{taskId}")
-    public void deleteTask(@PathVariable String taskId) {
+    @Override
+    public ResponseEntity<Void> deleteById(String taskId) {
         taskApplicationService.deleteTask(taskId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/task/{taskId}")
-    public TaskDTO getTaskById(@PathVariable String taskId) {
-        return taskApplicationService.getTaskById(taskId);
+    @Override
+    public ResponseEntity<TaskDto> getTaskById(String taskId) {
+        return new ResponseEntity<>(taskApplicationService.getTaskById(taskId), HttpStatus.OK);
     }
 
-    @GetMapping("/task")
-    public TasksDTO getTasks(@RequestParam int page, @RequestParam int size) {
-        return taskApplicationService.getTasks(page, size);
+    @Override
+    public ResponseEntity<GetTasks200ResponseDto> getTasks() {
+        return new ResponseEntity<>(taskApplicationService.getTasks(0,5), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> updateTask(UpdateTaskDto updateTaskDto) {
+        taskApplicationService.updateTask(updateTaskDto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

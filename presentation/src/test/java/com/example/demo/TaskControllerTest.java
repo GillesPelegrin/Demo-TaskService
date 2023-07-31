@@ -1,7 +1,7 @@
 package com.example.demo;
 
-import com.example.demo.dto.task.CreateTaskDTO;
-import com.example.demo.dto.task.UpdateTaskDTO;
+import com.example.demo.gen.springbootserver.model.CreateTaskDto;
+import com.example.demo.gen.springbootserver.model.UpdateTaskDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,7 +23,7 @@ class TaskControllerTest {
 
     @Test
     void createTask() {
-        CreateTaskDTO createTaskDTO = Mockito.mock(CreateTaskDTO.class);
+        CreateTaskDto createTaskDTO = Mockito.mock(CreateTaskDto.class);
         taskController.createTask(createTaskDTO);
 
         verify(taskApplicationService).createTask(createTaskDTO);
@@ -31,15 +31,15 @@ class TaskControllerTest {
 
     @Test
     void updateTask() {
-        UpdateTaskDTO updateTaskDTO = Mockito.mock(UpdateTaskDTO.class);
+        UpdateTaskDto updateTaskDTO = Mockito.mock(UpdateTaskDto.class);
         taskController.updateTask(updateTaskDTO);
 
         verify(taskApplicationService).updateTask(updateTaskDTO);
     }
 
     @Test
-    void deleteTask() {
-        taskController.deleteTask(TASK_ID);
+    void deleteById() {
+        taskController.deleteById(TASK_ID);
         verify(taskApplicationService).deleteTask(TASK_ID);
     }
 
