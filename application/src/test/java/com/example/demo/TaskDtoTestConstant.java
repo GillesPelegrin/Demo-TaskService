@@ -4,27 +4,11 @@ import com.example.demo.gen.springbootserver.model.CreateTaskDto;
 import com.example.demo.gen.springbootserver.model.TaskDto;
 import com.example.demo.gen.springbootserver.model.UpdateTaskDto;
 
-import java.time.LocalDateTime;
-
+import static com.example.demo.testconstant.TaskTestConstant.TASK_ID;
 import static com.example.demo.util.DateTimeWrapper.currentDateTime;
 
 
-public class TaskTestConstant {
-
-    public static String TASK_ID = "e282338f-3cec-426b-b36c-10a83d431682";
-
-    public static Task getTask() {
-        return getTaskBuilder().build();
-    }
-
-    public static Task.TaskBuilder getTaskBuilder() {
-        return Task.builder()
-                .id(TASK_ID)
-                .title("title")
-                .message("message")
-                .creationDate(LocalDateTime.now())
-                .updateDate(LocalDateTime.now());
-    }
+public class TaskDtoTestConstant {
 
     public static CreateTaskDto getCreateTaskDTO() {
         CreateTaskDto createTaskDto = new CreateTaskDto();

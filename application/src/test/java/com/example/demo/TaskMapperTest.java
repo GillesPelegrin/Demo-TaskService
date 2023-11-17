@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
 
-import static com.example.demo.TaskTestConstant.getCreateTaskDTO;
-import static com.example.demo.TaskTestConstant.getTask;
-import static com.example.demo.TaskTestConstant.getTaskBuilder;
-import static com.example.demo.TaskTestConstant.getTaskDTO;
-import static com.example.demo.TaskTestConstant.getUpdateTaskDTO;
+import static com.example.demo.TaskDtoTestConstant.getCreateTaskDTO;
+import static com.example.demo.TaskDtoTestConstant.getTaskDTO;
+import static com.example.demo.TaskDtoTestConstant.getUpdateTaskDTO;
+import static com.example.demo.testconstant.TaskTestConstant.getTask;
+import static com.example.demo.testconstant.TaskTestConstant.getTaskBuilder;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class TaskMapperTest {

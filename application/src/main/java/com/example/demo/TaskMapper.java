@@ -3,6 +3,7 @@ package com.example.demo;
 import com.example.demo.gen.springbootserver.model.CreateTaskDto;
 import com.example.demo.gen.springbootserver.model.TaskDto;
 import com.example.demo.gen.springbootserver.model.UpdateTaskDto;
+import com.example.demo.task.Task;
 import org.springframework.stereotype.Component;
 
 @Component

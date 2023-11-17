@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static com.example.demo.TaskTestConstant.TASK_ID;
+import static com.example.demo.testconstant.TaskTestConstant.TASK_ID;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)

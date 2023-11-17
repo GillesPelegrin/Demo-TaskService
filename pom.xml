@@ -18,74 +18,6 @@
         <java.version>17</java.version>
     </properties>
 
-
-    <dependencyManagement>
-        <dependencies>
-            <!--            <dependency>-->
-            <!--                <groupId>org.springframework.boot</groupId>-->
-            <!--                <artifactId>spring-boot-starter-actuator</artifactId>-->
-            <!--            </dependency>-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.springframework.boot</groupId>-->
-            <!--                <artifactId>spring-boot-starter-data-jpa</artifactId>-->
-            <!--            </dependency>-->
-            <!--        <dependency>-->
-            <!--            <groupId>org.springframework.boot</groupId>-->
-            <!--            <artifactId>spring-boot-starter-security</artifactId>-->
-            <!--        </dependency>-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.springframework.boot</groupId>-->
-            <!--                <artifactId>spring-boot-starter-web</artifactId>-->
-            <!--            </dependency>-->
-
-            <!--            <dependency>-->
-            <!--                <groupId>org.liquibase</groupId>-->
-            <!--                <artifactId>liquibase-core</artifactId>-->
-            <!--            </dependency>-->
-
-            <!--            <dependency>-->
-            <!--                <groupId>org.postgresql</groupId>-->
-            <!--                <artifactId>postgresql</artifactId>-->
-            <!--                <scope>runtime</scope>-->
-            <!--            </dependency>-->
-
-            <!--            <dependency>-->
-            <!--                <groupId>org.projectlombok</groupId>-->
-            <!--                <artifactId>lombok</artifactId>-->
-            <!--                <version>1.18.20</version>-->
-            <!--                <scope>provided</scope>-->
-            <!--            </dependency>-->
-
-
-            <!--Test dependencies-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.springframework.boot</groupId>-->
-            <!--                <artifactId>spring-boot-starter-test</artifactId>-->
-            <!--                <scope>test</scope>-->
-            <!--            </dependency>-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.springframework.boot</groupId>-->
-            <!--                <artifactId>spring-boot-testcontainers</artifactId>-->
-            <!--                <scope>test</scope>-->
-            <!--            </dependency>-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.springframework.security</groupId>-->
-            <!--                <artifactId>spring-security-test</artifactId>-->
-            <!--                <scope>test</scope>-->
-            <!--            </dependency>-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.testcontainers</groupId>-->
-            <!--                <artifactId>junit-jupiter</artifactId>-->
-            <!--                <scope>test</scope>-->
-            <!--            </dependency>-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.testcontainers</groupId>-->
-            <!--                <artifactId>postgresql</artifactId>-->
-            <!--                <scope>test</scope>-->
-            <!--            </dependency>-->
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -118,17 +50,6 @@
 
     <build>
         <plugins>
-            <!--            <plugin>-->
-            <!--                <groupId>org.springframework.boot</groupId>-->
-            <!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-            <!--                <configuration>-->
-            <!--                    <mainClass>presentation.src.main.java.com.example.demo.Application</mainClass>-->
-            <!--                    <layout>JAR</layout>-->
-            <!--                </configuration>-->
-            <!--            </plugin>-->
-
-
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -141,7 +62,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 

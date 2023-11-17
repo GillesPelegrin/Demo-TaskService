@@ -1,15 +1,17 @@
 package com.example.demo;
 
+import com.example.demo.task.Task;
+import com.example.demo.task.TaskRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static com.example.demo.TaskTestConstant.TASK_ID;
-import static com.example.demo.TaskTestConstant.getCreateTaskDTO;
-import static com.example.demo.TaskTestConstant.getTask;
-import static com.example.demo.TaskTestConstant.getUpdateTaskDTO;
+import static com.example.demo.TaskDtoTestConstant.getCreateTaskDTO;
+import static com.example.demo.TaskDtoTestConstant.getUpdateTaskDTO;
+import static com.example.demo.testconstant.TaskTestConstant.TASK_ID;
+import static com.example.demo.testconstant.TaskTestConstant.getTask;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 

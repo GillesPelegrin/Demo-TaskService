@@ -1,15 +1,14 @@
 package com.example.demo.acceptancetest;
 
 import com.example.demo.acceptancetest.client.TaskTestClient;
-import com.example.demo.gen.springbootserver.model.GetTasks200ResponseDto;
 import com.example.demo.gen.springbootserver.model.TaskDto;
 import com.example.demo.gen.springbootserver.model.UpdateTaskDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Pageable;
 
-import static com.example.demo.TaskTestConstant.getCreateTaskDTO;
-import static com.example.demo.TaskTestConstant.getTaskDTO;
-import static com.example.demo.TaskTestConstant.getUpdateTaskDTO;
+import static com.example.demo.TaskDtoTestConstant.getCreateTaskDTO;
+import static com.example.demo.TaskDtoTestConstant.getTaskDTO;
+import static com.example.demo.TaskDtoTestConstant.getUpdateTaskDTO;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TaskAcceptanceTest extends AbstractAcceptanceTest {
