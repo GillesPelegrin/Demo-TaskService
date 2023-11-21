@@ -23,7 +23,7 @@ Each functionality should be tested at least by one type of test.
 Multiple type of test are been written so that most of all flows are tested
 
 * Unit test
-* Integration test
+* [Repository Integration test](domain/src/test/java/com/example/demo\task\integrationtest.md)
 * [Acceptance test](presentation/src/test/java/com/example/demo/acceptancetest/README.md)
 * Architectural Test
 
