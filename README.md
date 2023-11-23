@@ -37,14 +37,10 @@ Multiple type of test are been written so that most of all flows are tested
 
 `Clean up documentation beneath when task are create in github or have been solved`
 
-###### Architectural Testing
-- [ ] Create a test that check that only the DateTimeWrapper is been used
 
 ###### Acceptance Testing
 - [x] Create an acceptance test with testcontainers
 - [ ] Create an acceptance test which test the NotFoundException
-###### Integration Testing
-- [ ] Create an integration test for testing the pagination querry
 
 
 ### Security

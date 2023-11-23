@@ -1,6 +1,7 @@
 package com.example.demo.testconstant;
 
 import com.example.demo.task.Task;
+import com.example.demo.util.DateTimeWrapper;
 
 import java.time.LocalDateTime;
 
@@ -18,7 +19,7 @@ public class TaskTestConstant {
                 .id(TASK_ID)
                 .title("title")
                 .message("message")
-                .creationDate(LocalDateTime.now())
-                .updateDate(LocalDateTime.now());
+                .creationDate(DateTimeWrapper.currentDateTime())
+                .updateDate(DateTimeWrapper.currentDateTime());
     }
 }
