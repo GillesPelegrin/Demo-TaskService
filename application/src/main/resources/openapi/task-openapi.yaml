@@ -28,6 +28,24 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/task'
+        "401":
+          description: "Not Authorized"
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        "404":
+          description: "Not Found"
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        "500":
+          description: "Internal Error"
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
     put:
       operationId: updateTask
       tags:
@@ -54,6 +72,25 @@ paths:
       responses:
         "200":
           description: OK
+        "401":
+          description: "Not Authorized"
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        "404":
+          description: "Not Found"
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        "500":
+          description: "Internal Error"
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
+
   /api/v1/task/{taskId}:
     parameters:
       - name: taskId
@@ -73,6 +110,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/task'
+        "401":
+          description: "Not Authorized"
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        "404":
+          description: "Not Found"
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        "500":
+          description: "Internal Error"
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
     delete:
       operationId: deleteById
       tags:
@@ -80,6 +135,24 @@ paths:
       responses:
         "200":
           description: OK
+        "401":
+          description: "Not Authorized"
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        "404":
+          description: "Not Found"
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        "500":
+          description: "Internal Error"
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
 components:
   schemas:
 
@@ -133,4 +206,16 @@ components:
         title:
           type: string
         message:
+          type: string
+
+    problem:
+      type: object
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        detail:
+          type: string
+        context:
           type: string

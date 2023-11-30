@@ -1,6 +1,6 @@
-package com.example.demo.acceptancetest;
+package com.example.demo.acceptancetest.task;
 
-import com.example.demo.acceptancetest.client.TaskTestClient;
+import com.example.demo.acceptancetest.AbstractAcceptanceTest;
 import com.example.demo.gen.springbootserver.model.TaskDto;
 import com.example.demo.gen.springbootserver.model.UpdateTaskDto;
 import org.junit.jupiter.api.Test;

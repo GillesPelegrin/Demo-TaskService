@@ -1,5 +1,6 @@
-package com.example.demo.acceptancetest.client;
+package com.example.demo.acceptancetest.task;
 
+import com.example.demo.acceptancetest.TestClient;
 import com.example.demo.gen.springbootserver.model.CreateTaskDto;
 import com.example.demo.gen.springbootserver.model.GetTasks200ResponseDto;
 import com.example.demo.gen.springbootserver.model.TaskDto;

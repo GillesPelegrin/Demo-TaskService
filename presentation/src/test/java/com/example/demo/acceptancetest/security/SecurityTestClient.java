@@ -1,5 +1,6 @@
-package com.example.demo.acceptancetest.client;
+package com.example.demo.acceptancetest.security;
 
+import com.example.demo.acceptancetest.TestClient;
 import com.example.demo.gen.springbootserver.model.SecurityDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.MockMvc;

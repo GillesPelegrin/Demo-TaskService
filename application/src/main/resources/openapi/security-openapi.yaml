@@ -26,6 +26,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/security'
+        "401":
+          description: "Not Authorized"
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        "404":
+          description: "Not Found"
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        "500":
+          description: "Internal Error"
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
 
 
 components:
@@ -36,5 +54,17 @@ components:
       properties:
         accessToken:
           type: string
-          format:
+
+    problem:
+      type: object
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        detail:
+          type: string
+        context:
+          type: string
+
 

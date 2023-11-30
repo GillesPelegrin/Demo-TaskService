@@ -1,4 +1,4 @@
-package com.example.demo.acceptancetest.client;
+package com.example.demo.acceptancetest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
