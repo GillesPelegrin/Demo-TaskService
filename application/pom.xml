@@ -23,13 +23,10 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <!--Test dependencies-->
         <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <type>test-jar</type>
-            <scope>test</scope>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+            <version>9.37</version>
         </dependency>
 
 
@@ -85,6 +82,15 @@
             <version>2.5</version>
             <scope>provided</scope>
         </dependency>
+
+        <!--Test dependencies-->
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>domain</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -94,29 +100,39 @@
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
                 <version>6.6.0</version>
+                <configuration>
+                    <generatorName>spring</generatorName>
+                    <library>spring-boot</library>
+                    <modelNameSuffix>Dto</modelNameSuffix>
+                    <generateApiTests>false</generateApiTests>
+                    <generateModelTests>false</generateModelTests>
+                    <configOptions>
+                        <useTags>true</useTags>
+                        <modelNameSuffix>Dto</modelNameSuffix>
+                        <generateApiTests>false</generateApiTests>
+                        <generateModelTests>false</generateModelTests>
+                        <basePackage>com.example.demo.gen.springbootserver</basePackage>
+                        <modelPackage>com.example.demo.gen.springbootserver.model</modelPackage>
+                        <apiPackage>com.example.demo.gen.springbootserver.api</apiPackage>
+                        <dateLibrary>java8</dateLibrary>
+                        <delegatePattern>true</delegatePattern>
+                        <interfaceOnly>true</interfaceOnly>
+                    </configOptions>
+                </configuration>
+
                 <executions>
                     <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
+                        <id>task</id>
+                        <goals><goal>generate</goal></goals>
                         <configuration>
                             <inputSpec>${project.basedir}/src/main/resources/openapi/task-openapi.yaml</inputSpec>
-                            <generatorName>spring</generatorName>
-                            <library>spring-boot</library>
-                            <modelNameSuffix>Dto</modelNameSuffix>
-                            <generateApiTests>false</generateApiTests>
-                            <generateModelTests>false</generateModelTests>
-                            <configOptions>
-                                <modelNameSuffix>Dto</modelNameSuffix>
-                                <generateApiTests>false</generateApiTests>
-                                <generateModelTests>false</generateModelTests>
-                                <basePackage>com.example.demo.gen.springbootserver</basePackage>
-                                <modelPackage>com.example.demo.gen.springbootserver.model</modelPackage>
-                                <apiPackage>com.example.demo.gen.springbootserver.api</apiPackage>
-                                <dateLibrary>java8</dateLibrary>
-                                <delegatePattern>true</delegatePattern>
-                                <interfaceOnly>true</interfaceOnly>
-                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>security</id>
+                        <goals><goal>generate</goal></goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/openapi/security-openapi.yaml</inputSpec>
                         </configuration>
                     </execution>
                 </executions>

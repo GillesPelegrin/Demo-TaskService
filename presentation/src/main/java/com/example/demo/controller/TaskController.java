@@ -1,9 +1,9 @@
-package com.example.demo;
+package com.example.demo.controller;
 
-import com.example.demo.gen.springbootserver.api.V1Api;
+import com.example.demo.TaskApplicationService;
+import com.example.demo.gen.springbootserver.api.TaskApi;
 import com.example.demo.gen.springbootserver.model.CreateTaskDto;
 import com.example.demo.gen.springbootserver.model.GetTasks200ResponseDto;
-import com.example.demo.gen.springbootserver.model.PaginationDto;
 import com.example.demo.gen.springbootserver.model.TaskDto;
 import com.example.demo.gen.springbootserver.model.UpdateTaskDto;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-public class TaskController implements V1Api {
+public class TaskController implements TaskApi {
 
     private final TaskApplicationService taskApplicationService;
 
@@ -36,7 +36,7 @@ public class TaskController implements V1Api {
 
     @Override
     public ResponseEntity<GetTasks200ResponseDto> getTasks() {
-        return new ResponseEntity<>(taskApplicationService.getTasks(0,5), HttpStatus.OK);
+        return new ResponseEntity<>(taskApplicationService.getTasks(0, 5), HttpStatus.OK);
     }
 
     @Override

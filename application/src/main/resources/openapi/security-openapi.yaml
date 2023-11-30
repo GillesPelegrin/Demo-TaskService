@@ -1,0 +1,40 @@
+---
+openapi: 3.0.0
+info:
+  title: 'Security API'
+  description: 'An api for authentication'
+  version: 0.0.1
+servers:
+  - url: localhost:8080
+tags:
+  - name: Security
+paths:
+  /api/v1/security:
+    get:
+      operationId: getAccessToken
+      tags:
+        - Security
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/security'
+
+
+components:
+  schemas:
+    # Generic Component
+    security:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          format:
+

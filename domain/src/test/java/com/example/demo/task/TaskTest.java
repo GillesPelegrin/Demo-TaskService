@@ -1,11 +1,9 @@
 package com.example.demo.task;
 
 
-import com.example.demo.task.Task;
 import com.example.demo.util.DateTimeWrapper;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-
-import java.time.Instant;
 
 import static com.example.demo.util.DateTimeWrapper.currentDateTime;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,6 +11,11 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 class TaskTest {
+
+    @AfterEach
+    void tearDown() {
+        DateTimeWrapper.reset();
+    }
 
     @Test
     void Task_titleIsNull_exception() {
@@ -30,7 +33,7 @@ class TaskTest {
 
     @Test
     void Task_datesAreFilled() {
-        DateTimeWrapper.setFixed(Instant.now());
+        DateTimeWrapper.pause();
 
         Task task = Task.builder()
                 .title("title")

@@ -8,8 +8,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static com.example.demo.TaskDtoTestConstant.getCreateTaskDTO;
-import static com.example.demo.TaskDtoTestConstant.getUpdateTaskDTO;
+import static com.example.demo.testconstant.TaskDtoTestConstant.getCreateTaskDTO;
+import static com.example.demo.testconstant.TaskDtoTestConstant.getUpdateTaskDTO;
 import static com.example.demo.testconstant.TaskTestConstant.TASK_ID;
 import static com.example.demo.testconstant.TaskTestConstant.getTask;
 import static org.mockito.Mockito.verify;

@@ -2,14 +2,14 @@
 openapi: 3.0.0
 info:
   title: 'Task API'
-  description: 'This is the secure api for getting or adapting the task resource'
+  description: 'This is an api for getting or adapting the task resource'
   version: 0.0.1
 servers:
-  - url: localhost:8080
+  - url: localhost:8080/api
 tags:
   - name: Task
 paths:
-  /v1/task:
+  /api/v1/task:
     get:
       operationId: getTasks
       tags:
@@ -54,7 +54,7 @@ paths:
       responses:
         "200":
           description: OK
-  /v1/task/{taskId}:
+  /api/v1/task/{taskId}:
     parameters:
       - name: taskId
         in: path

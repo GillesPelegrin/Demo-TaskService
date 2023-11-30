@@ -6,12 +6,12 @@ import com.example.demo.gen.springbootserver.model.UpdateTaskDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Pageable;
 
-import static com.example.demo.TaskDtoTestConstant.getCreateTaskDTO;
-import static com.example.demo.TaskDtoTestConstant.getTaskDTO;
-import static com.example.demo.TaskDtoTestConstant.getUpdateTaskDTO;
+import static com.example.demo.testconstant.TaskDtoTestConstant.getCreateTaskDTO;
+import static com.example.demo.testconstant.TaskDtoTestConstant.getTaskDTO;
+import static com.example.demo.testconstant.TaskDtoTestConstant.getUpdateTaskDTO;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TaskAcceptanceTest extends AbstractAcceptanceTest {
+class TaskAcceptanceTest extends AbstractAcceptanceTest {
 
 
     @Test

@@ -4,12 +4,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import static org.springframework.http.HttpHeaders.readOnlyHttpHeaders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public abstract class TestClient {
@@ -21,10 +24,19 @@ public abstract class TestClient {
     }
 
     public <T> T get(Class<T> responseBody, String urlTemplate, Object... uriVariables) {
+        return get(responseBody, readOnlyHttpHeaders(new LinkedMultiValueMap<>()), urlTemplate, uriVariables);
+    }
+
+    public <T> T get(Class<T> responseBody, HttpHeaders httpHeaders, String urlTemplate) {
+        return get(responseBody, httpHeaders, urlTemplate, new Object());
+    }
+
+    public <T> T get(Class<T> responseBody, HttpHeaders httpHeaders, String urlTemplate, Object... uriVariables) {
         try {
             MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(urlTemplate, uriVariables)
                             .contentType(MediaType.APPLICATION_JSON)
-                            .accept(MediaType.APPLICATION_JSON))
+                            .accept(MediaType.APPLICATION_JSON)
+                            .headers(httpHeaders))
                     .andExpect(status().isOk())
                     .andReturn();
 

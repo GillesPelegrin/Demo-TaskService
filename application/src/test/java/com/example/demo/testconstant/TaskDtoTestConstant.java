@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.testconstant;
 
 import com.example.demo.gen.springbootserver.model.CreateTaskDto;
 import com.example.demo.gen.springbootserver.model.TaskDto;

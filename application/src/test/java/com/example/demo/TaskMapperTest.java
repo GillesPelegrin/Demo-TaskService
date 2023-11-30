@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
 
-import static com.example.demo.TaskDtoTestConstant.getCreateTaskDTO;
-import static com.example.demo.TaskDtoTestConstant.getTaskDTO;
-import static com.example.demo.TaskDtoTestConstant.getUpdateTaskDTO;
+import static com.example.demo.testconstant.TaskDtoTestConstant.getCreateTaskDTO;
+import static com.example.demo.testconstant.TaskDtoTestConstant.getTaskDTO;
+import static com.example.demo.testconstant.TaskDtoTestConstant.getUpdateTaskDTO;
 import static com.example.demo.testconstant.TaskTestConstant.getTask;
 import static com.example.demo.testconstant.TaskTestConstant.getTaskBuilder;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
