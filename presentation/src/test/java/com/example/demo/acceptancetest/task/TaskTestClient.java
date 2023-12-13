@@ -1,6 +1,7 @@
 package com.example.demo.acceptancetest.task;
 
-import com.example.demo.acceptancetest.TestClient;
+import com.example.demo.TestClient;
+import com.example.demo.acceptancetest.security.TokenVerifyAcceptanceTest;
 import com.example.demo.gen.springbootserver.model.CreateTaskDto;
 import com.example.demo.gen.springbootserver.model.GetTasks200ResponseDto;
 import com.example.demo.gen.springbootserver.model.TaskDto;
@@ -10,10 +11,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import static com.example.demo.FileUtil.readFile;
+
 public class TaskTestClient extends TestClient {
 
     public TaskTestClient(MockMvc mockMvc) {
         super(mockMvc);
+        setAuthToken(readFile(TokenVerifyAcceptanceTest.class, "../../../../../test-jwt.txt"));
     }
 
     public void createTask(CreateTaskDto taskDTO) {
@@ -37,6 +41,6 @@ public class TaskTestClient extends TestClient {
         params.add("page", String.valueOf(pageable.getPageNumber()));
         params.add("size", String.valueOf(pageable.getPageSize()));
 
-        return getWithParam(GetTasks200ResponseDto.class, params, "http://localhost:8080/api/v1/task");
+        return get(GetTasks200ResponseDto.class, params, "http://localhost:8080/api/v1/task");
     }
 }

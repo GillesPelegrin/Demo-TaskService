@@ -1,8 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.SecurityApplicationService;
-import com.example.demo.gen.springbootserver.model.SecurityDto;
-import com.nimbusds.jose.Payload;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

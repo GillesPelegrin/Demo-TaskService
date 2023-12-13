@@ -1,4 +1,4 @@
-package com.example.demo.acceptancetest;
+package com.example.demo;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,50 +12,51 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import static org.springframework.http.HttpHeaders.readOnlyHttpHeaders;
+import java.util.List;
+
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public abstract class TestClient {
 
     private MockMvc mockMvc;
+    private String authToken;
 
     public TestClient(MockMvc mockMvc) {
         this.mockMvc = mockMvc;
     }
 
     public <T> T get(Class<T> responseBody, String urlTemplate, Object... uriVariables) {
-        return get(responseBody, readOnlyHttpHeaders(new LinkedMultiValueMap<>()), urlTemplate, uriVariables);
+        return get(responseBody, emptyHttpHeader(), urlTemplate, uriVariables);
     }
+
 
     public <T> T get(Class<T> responseBody, HttpHeaders httpHeaders, String urlTemplate) {
         return get(responseBody, httpHeaders, urlTemplate, new Object());
     }
 
     public <T> T get(Class<T> responseBody, HttpHeaders httpHeaders, String urlTemplate, Object... uriVariables) {
-        try {
-            MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(urlTemplate, uriVariables)
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .accept(MediaType.APPLICATION_JSON)
-                            .headers(httpHeaders))
-                    .andExpect(status().isOk())
-                    .andReturn();
-
-            return toObject(mvcResult.getResponse().getContentAsString(), responseBody);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return get(responseBody, emptyParams(), httpHeaders, urlTemplate, uriVariables);
     }
 
-    public <T> T getWithParam(Class<T> responseBody, MultiValueMap<String, String> params, String urlTemplate, Object... uriVariables) {
+    public <T> T get(Class<T> responseBody, MultiValueMap<String, String> params, String urlTemplate, Object... uriVariables) {
+        return get(responseBody, params, emptyHttpHeader(), urlTemplate, uriVariables);
+    }
+
+    public <T> T get(Class<T> responseBody, MultiValueMap<String, String> params, HttpHeaders httpHeaders, String urlTemplate, Object... uriVariables) {
         try {
+            addAuthTokenToHttpHeader(authToken, httpHeaders);
+
             MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(urlTemplate, uriVariables)
+                            .headers(httpHeaders)
                             .queryParams(params)
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .accept(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isOk())
+                            .contentType(MediaType.APPLICATION_JSON))
                     .andReturn();
 
-            return toObject(mvcResult.getResponse().getContentAsString(), responseBody);
+            if (responseBody != null) {
+                return toObject(mvcResult.getResponse().getContentAsString(), responseBody);
+            }
+            return (T) new Object();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -63,10 +64,13 @@ public abstract class TestClient {
 
     public void post(Object o, String urlTemplate, Object... uriVariables) {
         try {
+            HttpHeaders httpHeaders = emptyHttpHeader();
+            addAuthTokenToHttpHeader(authToken, httpHeaders);
+
             mockMvc.perform(MockMvcRequestBuilders.post(urlTemplate, uriVariables)
                             .content(asJsonString(o))
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .accept(MediaType.APPLICATION_JSON))
+                            .headers(httpHeaders)
+                            .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isCreated());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -75,10 +79,13 @@ public abstract class TestClient {
 
     public void put(Object o, String urlTemplate, Object... uriVariables) {
         try {
+            HttpHeaders httpHeaders = emptyHttpHeader();
+            addAuthTokenToHttpHeader(authToken, httpHeaders);
+
             mockMvc.perform(MockMvcRequestBuilders.put(urlTemplate, uriVariables)
                             .content(asJsonString(o))
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .accept(MediaType.APPLICATION_JSON))
+                            .headers(httpHeaders)
+                            .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -87,9 +94,12 @@ public abstract class TestClient {
 
     public void delete(String urlTemplate, Object... uriVariables) {
         try {
+            HttpHeaders httpHeaders = emptyHttpHeader();
+            addAuthTokenToHttpHeader(authToken, httpHeaders);
+
             mockMvc.perform(MockMvcRequestBuilders.delete(urlTemplate, uriVariables)
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .accept(MediaType.APPLICATION_JSON))
+                            .headers(httpHeaders)
+                            .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -114,5 +124,24 @@ public abstract class TestClient {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static HttpHeaders addAuthTokenToHttpHeader(String authToken, HttpHeaders httpHeaders) {
+        if (authToken != null) {
+            httpHeaders.setBearerAuth(authToken);
+        }
+        return httpHeaders;
+    }
+
+    private static HttpHeaders emptyHttpHeader() {
+        return HttpHeaders.writableHttpHeaders(HttpHeaders.EMPTY);
+    }
+
+    private static MultiValueMap<String, String> emptyParams() {
+        return new LinkedMultiValueMap<>();
+    }
+
+    protected void setAuthToken(String authToken) {
+        this.authToken = authToken;
     }
 }

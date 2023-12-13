@@ -1,18 +1,15 @@
-package com.example.demo.acceptancetest;
+package com.example.demo;
 
-import com.example.demo.Application;
-import com.example.demo.task.TaskRepository;
 import com.example.demo.testcontainer.PostgresTestContainer;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 
-@ContextConfiguration(classes= Application.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public abstract class AbstractAcceptanceTest {
 
@@ -21,12 +18,18 @@ public abstract class AbstractAcceptanceTest {
 
     private MockMvc mockMvc;
 
-      PostgresTestContainer container = new PostgresTestContainer();
+    PostgresTestContainer container = new PostgresTestContainer();
 
     // todo make a universal solution
     @BeforeEach
-    void clearDatabase(@Autowired TaskRepository taskRepository) {
-        taskRepository.deleteAll();
+    void clearDatabase(@Autowired JdbcTemplate jdbcTemplate) {
+        truncateTable(jdbcTemplate, "TASK");
+    }
+
+    //    @Transactional
+    public void truncateTable(JdbcTemplate jdbcTemplate, String tableName) {
+        String sql = "TRUNCATE TABLE " + tableName;
+        jdbcTemplate.execute(sql);
     }
 
     protected MockMvc getMockMvc() {

@@ -1,15 +1,17 @@
 package com.example.demo.acceptancetest.security;
 
-import com.example.demo.acceptancetest.AbstractAcceptanceTest;
-import com.example.demo.acceptancetest.security.SecurityTestClient;
-import com.example.demo.util.DateTimeWrapper;
+import com.example.demo.AbstractAcceptanceTest;
+import com.example.demo.Application;
+import com.example.demo.DateTimeWrapper;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.time.LocalDate;
 
 import static com.example.demo.testconstant.SecurityDtoTestConstant.getSecurityDTO;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
+@ContextConfiguration(classes = Application.class)
 class SecurityAcceptanceTest extends AbstractAcceptanceTest {
 
     @Test

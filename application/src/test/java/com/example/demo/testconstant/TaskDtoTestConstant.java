@@ -5,7 +5,7 @@ import com.example.demo.gen.springbootserver.model.TaskDto;
 import com.example.demo.gen.springbootserver.model.UpdateTaskDto;
 
 import static com.example.demo.testconstant.TaskTestConstant.TASK_ID;
-import static com.example.demo.util.DateTimeWrapper.currentDateTime;
+import static com.example.demo.DateTimeWrapper.currentDateTime;
 
 
 public class TaskDtoTestConstant {

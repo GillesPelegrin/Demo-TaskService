@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-import static com.example.demo.util.DateTimeWrapper.currentDateTime;
-import static com.example.demo.util.ExceptionUtil.isNotNull;
+import static com.example.demo.DateTimeWrapper.currentDateTime;
+import static com.example.demo.ExceptionUtil.isNotNull;
 
 @Entity
 @Getter

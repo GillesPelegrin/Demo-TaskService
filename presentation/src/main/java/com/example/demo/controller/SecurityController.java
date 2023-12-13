@@ -26,7 +26,7 @@ public class SecurityController implements SecurityApi {
 
     private String[] decodeAuthorizationToUsernameAndPassword(String authorization) {
         String base64String = authorization.replace("basic", "");
-        base64String = authorization.replace("Basic", "");
+        base64String = base64String.replace("Basic", "");
         base64String = base64String.trim();
 
         String[] usernamePassword = new String(Base64.getDecoder().decode(base64String)).split(":");

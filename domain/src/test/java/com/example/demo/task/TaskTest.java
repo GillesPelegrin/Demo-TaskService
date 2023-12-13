@@ -1,11 +1,11 @@
 package com.example.demo.task;
 
 
-import com.example.demo.util.DateTimeWrapper;
+import com.example.demo.DateTimeWrapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-import static com.example.demo.util.DateTimeWrapper.currentDateTime;
+import static com.example.demo.DateTimeWrapper.currentDateTime;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;

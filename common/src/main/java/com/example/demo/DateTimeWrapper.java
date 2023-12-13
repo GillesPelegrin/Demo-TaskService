@@ -1,4 +1,4 @@
-package com.example.demo.util;
+package com.example.demo;
 
 import java.time.Duration;
 import java.time.Instant;

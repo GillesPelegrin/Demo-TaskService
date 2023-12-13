@@ -1,6 +1,6 @@
 package com.example.demo.architecturetest;
 
-import com.example.demo.util.DateTimeWrapper;
+import com.example.demo.DateTimeWrapper;
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.lang.ArchRule;

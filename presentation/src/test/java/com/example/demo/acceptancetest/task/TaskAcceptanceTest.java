@@ -1,18 +1,21 @@
 package com.example.demo.acceptancetest.task;
 
-import com.example.demo.acceptancetest.AbstractAcceptanceTest;
+import com.example.demo.AbstractAcceptanceTest;
+import com.example.demo.Application;
+import com.example.demo.TestApplication;
 import com.example.demo.gen.springbootserver.model.TaskDto;
 import com.example.demo.gen.springbootserver.model.UpdateTaskDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Pageable;
+import org.springframework.test.context.ContextConfiguration;
 
 import static com.example.demo.testconstant.TaskDtoTestConstant.getCreateTaskDTO;
 import static com.example.demo.testconstant.TaskDtoTestConstant.getTaskDTO;
 import static com.example.demo.testconstant.TaskDtoTestConstant.getUpdateTaskDTO;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ContextConfiguration(classes = Application.class)
 class TaskAcceptanceTest extends AbstractAcceptanceTest {
-
 
     @Test
     void createUpdateAndDeleteTask() {

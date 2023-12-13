@@ -13,7 +13,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class EntityExceptionHandlerAdviceController extends ResponseEntityExceptionHandler {
+public class EntityExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = { UnauthorizedException.class })
     protected ResponseEntity<ProblemDto> handleUnauthorizedException(RuntimeException ex, WebRequest request) {
@@ -27,6 +27,11 @@ public class EntityExceptionHandlerAdviceController extends ResponseEntityExcept
 
     @ExceptionHandler(value = { InternalErrorException.class })
     protected ResponseEntity<ProblemDto> handleInternalErrorException(RuntimeException ex, WebRequest request) {
+        return new ResponseEntity<>(createProblem(ex, request), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(value = { Exception.class })
+    protected ResponseEntity<ProblemDto> handleGenericException(RuntimeException ex, WebRequest request) {
         return new ResponseEntity<>(createProblem(ex, request), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

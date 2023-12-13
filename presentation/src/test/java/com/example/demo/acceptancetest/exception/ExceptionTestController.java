@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ExceptionController {
+public class ExceptionTestController {
 
     @GetMapping("/notfoundException")
     public ResponseEntity<Void> notfoundException() {
@@ -23,5 +23,10 @@ public class ExceptionController {
     @GetMapping("/unauthorizedException")
     public ResponseEntity<Void> unauthorizedException() {
         throw new UnauthorizedException("message");
+    }
+
+    @GetMapping("/runTimeException")
+    public ResponseEntity<Void> runTimeException() {
+        throw new RuntimeException("message");
     }
 }
